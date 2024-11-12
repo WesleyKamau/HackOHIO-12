@@ -52,7 +52,7 @@ function SendMessagePage() {
 
   const handleLogin = (values) => {
     const { password } = values;
-    if (password === process.env.REACT_APP_EXECUTIVE_PASSWORD) {
+    if (password === process.env.EXECUTIVE_PASSWORD) {
       setAuthenticated(true);
     } else {
       message.error('Incorrect password');
