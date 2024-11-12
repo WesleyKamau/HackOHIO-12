@@ -49,7 +49,7 @@ function App() {
         zIndex: 100
       }}
     >
-        <Router>
+        <Router basename="RHACbot">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/add-chat" element={<AddChatPage />} />

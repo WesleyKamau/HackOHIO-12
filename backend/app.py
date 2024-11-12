@@ -15,7 +15,7 @@ CORS(app)
 GROUPME_API_URL = 'https://api.groupme.com/v3'
 
 # Load buildings data
-with open("rhacbot\src\\buildings.json", 'r') as f:
+with open("buildings.json", 'r') as f:
     buildings_data = json.load(f)
 
 # MongoDB setup
@@ -139,6 +139,7 @@ def join_group(group_id, share_token):
     params = {'token': app.config['GROUPME_ACCESS_TOKEN']}
     response = requests.post(url, params=params)
     positive_response_codes = [200, 201]
+    print( app.config['GROUPME_ACCESS_TOKEN'])
     if response.status_code in positive_response_codes:
         response_json = response.json()
         print(f'Successfully joined group {group_id}')

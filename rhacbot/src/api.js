@@ -1,7 +1,9 @@
 // src/api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const base_URL = "http://127.0.0.1:5000"
+
+const API_URL = base_URL + '/api';
 
 export const addChat = (data) => axios.post(`${API_URL}/chats/add`, data);
 
