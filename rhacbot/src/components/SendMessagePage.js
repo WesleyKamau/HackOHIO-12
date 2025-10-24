@@ -7,9 +7,11 @@ import {
   TreeSelect,
   Typography,
   message,
+  Alert,
+  Modal,
 } from 'antd';
 import { PlusOutlined  } from '@ant-design/icons';
-import { sendMessage } from '../api';
+import { sendMessage, authenticate } from '../api';
 import buildings from '../buildings.json'; // Import the buildings data
 
 const { Title } = Typography;
@@ -22,6 +24,8 @@ function SendMessagePage() {
   const [selectedValues, setSelectedValues] = useState([]);
   const [file, setFile] = useState(null); // Track selected file
   const [preview, setPreview] = useState(''); // Track preview URL
+    const [sendSummary, setSendSummary] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
 
   // Organize buildings by region
   const buildingsByRegion = buildings.reduce((acc, building) => {
@@ -50,11 +54,14 @@ function SendMessagePage() {
     selectable: true,
   });
 
-  const handleLogin = (values) => {
+  const handleLogin = async (values) => {
     const { password } = values;
-    if (password === process.env.EXECUTIVE_PASSWORD) {
-      setAuthenticated(true);
-    } else {
+    try {
+      const res = await authenticate(password);
+      if (res.status === 200) {
+        setAuthenticated(true);
+      }
+    } catch (err) {
       message.error('Incorrect password');
     }
   };
@@ -73,9 +80,9 @@ function SendMessagePage() {
   const handleSubmit = async (values) => {
     const { message_body } = values;
 
-    const formData = new FormData();
-    formData.append('password', password);
-    formData.append('message_body', message_body);
+  const formData = new FormData();
+  formData.append('password', password);
+  formData.append('message_body', message_body);
     if (file) {
       formData.append('image_file', file);
     }
@@ -112,7 +119,19 @@ function SendMessagePage() {
 
     try {
       const response = await sendMessage(formData);
-      message.success(response.data.message);
+        // Handle backend response with possible partial failures
+        const data = response.data || {};
+        if (response.status === 200) {
+          message.success(data.message || 'Messages sent successfully');
+          setSendSummary(null);
+        } else if (response.status === 207) {
+          // Partial success
+          setSendSummary(data);
+          message.warning(data.message || 'Some messages failed');
+        } else {
+          setSendSummary(data);
+          message.error(data.message || 'Failed to send messages');
+        }
       form.resetFields();
       setSelectedValues([]);
       setFile(null);
@@ -147,12 +166,12 @@ function SendMessagePage() {
             <Title level={3} style={{ textAlign: 'center' }}>
               Executive Login
             </Title>
-            <Form onFinish={handleLogin}>
+            <Form onFinish={handleLogin} autoComplete="off">
               <Form.Item
                 name="password"
                 rules={[{ required: true, message: 'Please input your password' }]}
               >
-                <Input.Password placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                <Input.Password autoComplete="current-password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
               </Form.Item>
               <Form.Item>
                 <Button type="primary" htmlType="submit" block>
@@ -193,6 +212,47 @@ function SendMessagePage() {
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         }}
       >
+        {sendSummary && (
+          <div style={{ marginBottom: 12 }}>
+            <Alert
+              message={sendSummary.message}
+              description={
+                sendSummary.summary
+                  ? `Sent ${sendSummary.summary.sent}/${sendSummary.summary.total} — ${sendSummary.summary.failed} failed`
+                  : null
+              }
+              type={sendSummary.summary ? 'warning' : 'error'}
+              showIcon
+              action={
+                sendSummary.failures ? (
+                  <Button size="small" onClick={() => setModalOpen(true)}>
+                    Details
+                  </Button>
+                ) : null
+              }
+            />
+          </div>
+        )}
+
+        <Modal
+          title="Send failures"
+          open={modalOpen}
+          onCancel={() => setModalOpen(false)}
+          footer={<Button onClick={() => setModalOpen(false)}>Close</Button>}
+        >
+          {sendSummary && sendSummary.failures ? (
+            <div style={{ maxHeight: 300, overflowY: 'auto' }}>
+              {sendSummary.failures.map((f) => (
+                <div key={f.group_id} style={{ marginBottom: 8 }}>
+                  <strong>Group {f.group_id}:</strong>
+                  <div>{f.error || 'Unknown error'}</div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>No failure details available.</div>
+          )}
+        </Modal>
         <div
           style={{
             display: 'flex',
@@ -204,7 +264,7 @@ function SendMessagePage() {
           <Title level={3} style={{ textAlign: 'center' }}>
             Send Message
           </Title>
-          <Form form={form} onFinish={handleSubmit}>
+          <Form form={form} onFinish={handleSubmit} autoComplete="off">
             <Form.Item
               name="message_body"
               rules={[{ required: true, message: 'Please input the message body' }]}
