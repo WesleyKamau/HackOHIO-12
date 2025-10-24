@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom'; // For v6
 import './HomePage.css';
+import { ENV } from '../api';
 
 const { Title, Paragraph } = Typography;
 
@@ -36,8 +37,23 @@ function HomePage() {
           borderRadius: '15px', // Curved edges
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
         }}>
+        {/* Environment badge (small, top-right) */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div
+            style={{
+              fontSize: '12px',
+              padding: '4px 8px',
+              borderRadius: '12px',
+              backgroundColor: ENV === 'development' ? '#f0ad4e' : '#5cb85c',
+              color: '#fff',
+              fontWeight: 600,
+            }}
+            title={`Environment: ${ENV}`}>
+            {ENV}
+          </div>
+        </div>
             <div className="homepage-container">
-            <img src='./rhac-logo.png' alt="RHAC Logo" className="logo" />
+            <img src={process.env.PUBLIC_URL + '/rhac-logo.png'} alt="RHAC Logo" className="logo" />
             <Title level={2} style={{ textAlign: 'center' }}>
                 Welcome to the RHACbot Control Panel!
             </Title>
