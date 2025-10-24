@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import json
+from pathlib import Path
 import uuid  # For generating unique message IDs
 import logging
 from config import Config
@@ -48,13 +49,28 @@ def init_app():
         app.config['MONGODB_DB_NAME'] = app.config.get('MONGODB_DB', 'rhac_db')
     CORS(app)
 
-    # Load buildings data safely
+    # Load buildings data safely from repository root (one level above backend/)
     try:
-        with open("buildings.json", 'r', encoding='utf-8') as f:
-            buildings_data = json.load(f)
-    except FileNotFoundError:
-        logger.warning("buildings.json not found; using empty buildings list")
-        buildings_data = []
+        repo_root = Path(__file__).resolve().parents[1]
+        root_buildings = repo_root / 'buildings.json'
+        backend_buildings = Path(__file__).resolve().parent / 'buildings.json'
+        rhacbot_buildings = repo_root / 'rhacbot' / 'src' / 'buildings.json'
+
+        if root_buildings.exists():
+            load_path = root_buildings
+        elif backend_buildings.exists():
+            load_path = backend_buildings
+        elif rhacbot_buildings.exists():
+            load_path = rhacbot_buildings
+        else:
+            load_path = None
+
+        if load_path:
+            with open(load_path, 'r', encoding='utf-8') as f:
+                buildings_data = json.load(f)
+        else:
+            logger.warning("buildings.json not found in repo root or backend or rhacbot; using empty buildings list")
+            buildings_data = []
     except json.JSONDecodeError as e:
         logger.error("Failed to parse buildings.json: %s", e)
         buildings_data = []

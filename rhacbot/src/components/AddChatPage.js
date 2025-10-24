@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { addChat } from '../api';
+import React, { useState, useEffect } from 'react';
+import { addChat, getBuildings } from '../api';
 import {
   Form,
   Input,
@@ -8,7 +8,6 @@ import {
   Typography,
   message,
 } from 'antd';
-import buildings from '../buildings.json'; // Import the buildings data
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -18,6 +17,19 @@ function AddChatPage() {
   const [buildingId, setBuildingId] = useState('');
   const [floorNumber, setFloorNumber] = useState('');
   const [groupmeLink, setGroupmeLink] = useState('');
+  const [buildings, setBuildings] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    getBuildings()
+      .then((res) => {
+        if (mounted && res && res.data) setBuildings(res.data.buildings || []);
+      })
+      .catch(() => {
+        if (mounted) setBuildings([]);
+      });
+    return () => (mounted = false);
+  }, []);
 
   const handleSubmit = async (values) => {
     const data = {

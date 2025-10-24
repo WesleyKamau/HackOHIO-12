@@ -3,7 +3,8 @@ import React from 'react';
 import { Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom'; // For v6
 import './HomePage.css';
-import { ENV } from '../api';
+import { ENV, BUILD_ENV } from '../api';
+import EnvSwitcher from './EnvSwitcher';
 
 const { Title, Paragraph } = Typography;
 
@@ -37,21 +38,29 @@ function HomePage() {
           borderRadius: '15px', // Curved edges
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
         }}>
-        {/* Environment badge (small, top-right) */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <div
-            style={{
-              fontSize: '12px',
-              padding: '4px 8px',
-              borderRadius: '12px',
-              backgroundColor: ENV === 'development' ? '#f0ad4e' : '#5cb85c',
-              color: '#fff',
-              fontWeight: 600,
-            }}
-            title={`Environment: ${ENV}`}>
-            {ENV}
+        {/* Environment badge (small, top-right) - only present for development builds */}
+        {BUILD_ENV === 'development' && (
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <div
+                style={{
+                  fontSize: '12px',
+                  padding: '4px 8px',
+                  borderRadius: '12px',
+                  backgroundColor: ENV === 'development' ? '#f0ad4e' : '#5cb85c',
+                  color: '#fff',
+                  fontWeight: 600,
+                  marginRight: 8,
+                }}
+                title={`Environment: ${ENV}`}>
+                {ENV}
+              </div>
+            </div>
+            <div>
+              <EnvSwitcher />
+            </div>
           </div>
-        </div>
+        )}
             <div className="homepage-container">
             <img src={process.env.PUBLIC_URL + '/rhac-logo.png'} alt="RHAC Logo" className="logo" />
             <Title level={2} style={{ textAlign: 'center' }}>

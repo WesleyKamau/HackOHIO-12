@@ -3,7 +3,12 @@ import axios from 'axios';
 
 // Determine application environment. Prefer REACT_APP_ENV if provided so dev/prod
 // behavior can be controlled independently of build-time NODE_ENV.
-export const ENV = process.env.REACT_APP_ENV || process.env.NODE_ENV || 'development';
+// Build-time env (from REACT_APP_ENV or NODE_ENV) but allow a runtime override
+export const BUILD_ENV = process.env.REACT_APP_ENV || process.env.NODE_ENV || 'development';
+
+// At runtime allow override via localStorage RHAC_ENV only (no global/window fallback)
+const runtimeOverride = (typeof window !== 'undefined') ? localStorage.getItem('RHAC_ENV') : null;
+export const ENV = runtimeOverride || BUILD_ENV;
 
 // Determine API base URL and optional prefix.
 // Priority:

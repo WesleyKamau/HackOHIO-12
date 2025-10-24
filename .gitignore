@@ -1,2 +1,49 @@
 .env
-.env
+.env.*
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+.Python
+env/
+venv/
+.venv/
+
+# Pytest
+.pytest_cache/
+
+# Packaging
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+# Logs
+*.log
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage
+htmlcov/
+coverage.xml
+
+# Misc caches
+.cache/
+.mypy_cache/
+
+# Ignore node build output for frontend (if not covered by rhacbot/.gitignore)
+/rhacbot/node_modules/
+/rhacbot/build/

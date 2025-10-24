@@ -1,0 +1,248 @@
+[
+    {
+        "id": 0,
+        "name": "Archer House",
+        "address": "2130 Neil Avenue",
+        "region": "North"
+    },
+    {
+        "id": 1,
+        "name": "Baker Hall East",
+        "address": "93 West 12th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 2,
+        "name": "Baker Hall West",
+        "address": "129 West 12th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 3,
+        "name": "Barrett House",
+        "address": "88 W. Woodruff Avenue",
+        "region": "North"
+    },
+    {
+        "id": 4,
+        "name": "Blackburn House",
+        "address": "136 W. Woodruff Avenue",
+        "region": "North"
+    },
+    {
+        "id": 5,
+        "name": "Bowen House",
+        "address": "2125 N. High Street",
+        "region": "North"
+    },
+    {
+        "id": 6,
+        "name": "Bradley Hall",
+        "address": "221 West 12th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 7,
+        "name": "Busch House",
+        "address": "2115 N. High Street",
+        "region": "North"
+    },
+    {
+        "id": 8,
+        "name": "Canfield Hall",
+        "address": "236 West 11th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 9,
+        "name": "Drackett Tower",
+        "address": "191 W. Lane Avenue",
+        "region": "North"
+    },
+    {
+        "id": 10,
+        "name": "Fechko House",
+        "address": "220 West 11th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 11,
+        "name": "German House",
+        "address": "141 West 11th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 12,
+        "name": "Halloran House",
+        "address": "60 West Woodruff Avenue",
+        "region": "North"
+    },
+    {
+        "id": 13,
+        "name": "Hanley House",
+        "address": "225 West 10th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 14,
+        "name": "Haverfield House",
+        "address": "112 W. Woodruff Avenue",
+        "region": "North"
+    },
+    {
+        "id": 15,
+        "name": "Houck House",
+        "address": "61 West Lane Avenue",
+        "region": "North"
+    },
+    {
+        "id": 16,
+        "name": "Houston House",
+        "address": "97 W. Lane Avenue",
+        "region": "North"
+    },
+    {
+        "id": 17,
+        "name": "Jones Tower",
+        "address": "123 W. Lane Avenue",
+        "region": "North"
+    },
+    {
+        "id": 18,
+        "name": "Lawrence Tower",
+        "address": "328 West Lane Avenue",
+        "region": "North"
+    },
+    {
+        "id": 19,
+        "name": "Lincoln Tower",
+        "address": "1810 Cannon Dr",
+        "region": "West"
+    },
+    {
+        "id": 20,
+        "name": "Mack Hall",
+        "address": "1698 Neil Avenue",
+        "region": "South"
+    },
+    {
+        "id": 21,
+        "name": "Mendoza House",
+        "address": "190 West Woodruff Ave.",
+        "region": "North"
+    },
+    {
+        "id": 22,
+        "name": "Morrill Tower",
+        "address": "1900 Cannon Drive",
+        "region": "West"
+    },
+    {
+        "id": 23,
+        "name": "Morrison Tower",
+        "address": "196 West 11th Ave.",
+        "region": "South"
+    },
+    {
+        "id": 24,
+        "name": "Neil Building",
+        "address": "1578 Neil Avenue",
+        "region": "South"
+    },
+    {
+        "id": 25,
+        "name": "Norton House",
+        "address": "2114 Neil Avenue",
+        "region": "North"
+    },
+    {
+        "id": 26,
+        "name": "Nosker House",
+        "address": "124 W. Woodruff Avenue",
+        "region": "North"
+    },
+    {
+        "id": 27,
+        "name": "Park-Stradley Hall",
+        "address": "120 W. 11th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 28,
+        "name": "Paterson Hall",
+        "address": "191 West 12th Ave.",
+        "region": "South"
+    },
+    {
+        "id": 29,
+        "name": "Pennsylvania Place",
+        "address": "1478 Pennsylvania Avenue",
+        "region": "South"
+    },
+    {
+        "id": 30,
+        "name": "Pomerene House",
+        "address": "231 West 10th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 31,
+        "name": "Raney House",
+        "address": "33 W. Lane Avenue",
+        "region": "North"
+    },
+    {
+        "id": 32,
+        "name": "Scholars East",
+        "address": "221 West 10th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 33,
+        "name": "Scholars West",
+        "address": "249 West 10th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 34,
+        "name": "Scott House",
+        "address": "160 W. Woodruff Avenue",
+        "region": "North"
+    },
+    {
+        "id": 35,
+        "name": "Siebert Hall",
+        "address": "184 West 11th Ave.",
+        "region": "South"
+    },
+    {
+        "id": 36,
+        "name": "Smith-Steeb Hall",
+        "address": "80 West 11th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 37,
+        "name": "Taylor Tower",
+        "address": "55 W. Lane Ave",
+        "region": "North"
+    },
+    {
+        "id": 38,
+        "name": "The Residence on Tenth",
+        "address": "230 West 10th Avenue",
+        "region": "South"
+    },
+    {
+        "id": 39,
+        "name": "Torres House",
+        "address": "187 W. Lane Avenue",
+        "region": "North"
+    },
+    {
+        "id": 40,
+        "name": "Worthington Building",
+        "address": "203 West 10th Avenue",
+        "region": "South"
+    }
+]

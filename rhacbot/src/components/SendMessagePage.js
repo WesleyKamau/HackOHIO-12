@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   Input,
@@ -11,8 +11,7 @@ import {
   Modal,
 } from 'antd';
 import { PlusOutlined  } from '@ant-design/icons';
-import { sendMessage, authenticate } from '../api';
-import buildings from '../buildings.json'; // Import the buildings data
+import { sendMessage, authenticate, getBuildings } from '../api';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -26,6 +25,19 @@ function SendMessagePage() {
   const [preview, setPreview] = useState(''); // Track preview URL
     const [sendSummary, setSendSummary] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [buildings, setBuildings] = useState([]);
+
+    useEffect(() => {
+      let mounted = true;
+      getBuildings()
+        .then((res) => {
+          if (mounted && res && res.data) setBuildings(res.data.buildings || []);
+        })
+        .catch(() => {
+          if (mounted) setBuildings([]);
+        });
+      return () => (mounted = false);
+    }, []);
 
   // Organize buildings by region
   const buildingsByRegion = buildings.reduce((acc, building) => {
